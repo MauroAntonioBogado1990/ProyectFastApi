@@ -85,3 +85,28 @@ def devolver_usuario(user_id: int):
         if usuario['id'] == user_id:
             return {'usuario':usuario}
     return ('No se encontro el usuario')
+
+### Eliminar usuario
+@app.delete('/user/{user_id}')
+def eliminar_usuarios(user_id: int):
+    for index, usuario in enumerate(usuarios):
+        if usuario['id'] == user_id:
+            usuarios.pop(index)
+            return {"usuarios: " : usuarios}
+    return ('No se encontro el usuario')
+
+### Actualizar usuarios
+@app.put('/user/{user_id}')
+def actualizar_usuarios(user_id: int, updateuser : Users):
+    for index, usuario in enumerate(usuarios):
+        if usuario['id'] == user_id:
+            usuario[index]["id"] = updateuser.dict()["id"]
+            usuario[index]["name"] = updateuser.dict()["name"]
+            usuario[index]["lastname"] = updateuser.dict()["lastname"]
+            usuario[index]["create"] = updateuser.dict()["create"]
+            usuario[index]["age"] = updateuser.dict()["age"]    
+            usuario[index]["address"] = updateuser.dict()["address"]
+            usuario[index]["description"] = updateuser.dict()["description"]
+            return{"respuesta":"Usuario actualizado correctamente"}
+    return ("respuesta Usuario actualizado correctamente")
+         
